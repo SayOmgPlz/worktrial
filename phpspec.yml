@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Worktrial
+        psr4_prefix: Worktrial
+        src_path: app
