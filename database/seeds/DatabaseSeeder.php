@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Worktrial\User;
 
 class DatabaseSeeder extends Seeder {
 
@@ -14,7 +15,16 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
-		// $this->call('UserTableSeeder');
+		$this->call('UserTableSeeder');
 	}
 
+}
+
+class UserTableSeeder extends Seeder {
+
+    public function run() {
+        DB::table("users")->delete();
+
+        User::create(['email' => 'test@test.com', 'password'=> bcrypt('test'), 'name'=> 'test']);
+    }
 }
