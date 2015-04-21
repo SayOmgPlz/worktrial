@@ -1,4 +1,7 @@
 <?php namespace Worktrial\Http\Controllers;
+use Worktrial\User;
+use Worktrial\Task;
+use Auth;
 
 class HomeController extends Controller {
 
@@ -30,7 +33,9 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('home');
+        $tasks = Task::where('owner', Auth::user()->id)->orWhere('performer', Auth::user()->id)->get();
+
+		return view('home', ['tasks' => $tasks]);
 	}
 
 }
