@@ -41,8 +41,9 @@ class TasksController extends Controller {
 	 */
 	public function create()
 	{
-		//
-	}
+
+
+    }
 
 	/**
 	 * Store a newly created resource in storage.
@@ -51,8 +52,19 @@ class TasksController extends Controller {
 	 */
 	public function store()
 	{
-		//
-	}
+        $task = new Task();
+        $task->description = Request::get('description');
+        $task->owner = Auth::user()->id;
+        $task->performer = Request::get('performer');
+        $task->state = Request::get('state');
+        $task->save();
+
+        return Response::json(array(
+                'errors' => false,
+                'data' => $task),
+            200
+        );
+    }
 
 	/**
 	 * Display the specified resource.
@@ -62,7 +74,18 @@ class TasksController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+        $task = Task::find($id);
+
+        if($task) {
+            return Response::json(array(
+                    'errors' => false,
+                    'data' => $task->toArray()),
+                200
+            );
+        } else {
+            return Response::json([ 'error' => ['Task does not exist']], 404);
+        }
+
 	}
 
 	/**
@@ -84,7 +107,18 @@ class TasksController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+        $task = Task::find($id);
+        $task->description = Request::get('description');
+        $task->owner = Auth::user()->id;
+        $task->performer = Request::get('performer');
+        $task->state = Request::get('state');
+        $task->save();
+
+        return Response::json(array(
+                'errors' => false,
+                'data' => $task),
+            200
+        );
 	}
 
 	/**
@@ -95,7 +129,14 @@ class TasksController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+        $task = Task::find($id);
+        $task->delete();
+
+        return Response::json(array(
+                'errors' => false,
+                'data' => $task),
+            200
+        );
 	}
 
 }

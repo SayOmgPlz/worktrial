@@ -1,0 +1,35 @@
+ul {
+  list-style-type: none;
+}
+
+.panel-body {
+
+  padding: 10px;
+  margin: 0;
+
+  li {
+    margin-bottom: 5px;
+    cursor: pointer;
+    padding: 5px 0;
+
+    &:hover {
+      background-color: #DCEDF5;
+    }
+  }
+}
+
+
+.panel-heading {
+
+   > span {
+     cursor: pointer;
+     border: 1px solid #ccc;
+     padding-top: 1px;
+     padding-bottom: 1px;
+   }
+
+  .add-task-icon {
+    margin: 0 8px -3px 0;
+  }
+
+}

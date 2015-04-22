@@ -6,7 +6,7 @@
             <span class="col-md-2"> {{ $task->owner() ? $task->owner()->first()->name : 'None' }} </span>
             <span class="col-md-5 hideOverflow"> {{ $task->description }} </span>
             <span class="col-md-2"> {{ $task->state ? 'opened' : 'closed' }} </span>
-            <span class="col-mid-1"> <a href="javascript:;" class="icon-edit"> </a></span>
+            <span class="col-mid-1"> <a href="javascript:;" class="icon-delete"> </a></span>
         </li>
         @endforeach
 </ul>

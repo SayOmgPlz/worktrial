@@ -1,3 +1,19 @@
+.add-task-icon {
+  background-image: url('../images/add-icon.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+  width: 16px;
+  height: 16px; }
+
+.icon-delete {
+  background-image: url('../images/delete.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+  width: 16px;
+  height: 16px; }
+
 ul {
   list-style-type: none; }
 
@@ -10,6 +26,14 @@ ul {
     padding: 5px 0; }
     .panel-body li:hover {
       background-color: #DCEDF5; }
+
+.panel-heading > span {
+  cursor: pointer;
+  border: 1px solid #ccc;
+  padding-top: 1px;
+  padding-bottom: 1px; }
+.panel-heading .add-task-icon {
+  margin: 0 8px -3px 0; }
 
 
 /*# sourceMappingURL=main.css.map */

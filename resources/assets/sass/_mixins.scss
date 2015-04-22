@@ -1,0 +1,6 @@
+@mixin img-background-contain($path) {
+  background-image: url($path);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+}
