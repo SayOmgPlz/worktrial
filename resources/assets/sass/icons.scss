@@ -1,0 +1,11 @@
+.add-task-icon {
+  @include img-background-contain('../images/add-icon.png');
+  width: 16px;
+  height: 16px;
+}
+
+.icon-delete {
+  @include img-background-contain('../images/delete.png');
+  width: 16px;
+  height: 16px;
+}
