@@ -1,4 +1,7 @@
 <?php namespace Worktrial\Http\Controllers;
+use Worktrial\User;
+use Worktrial\Task;
+use Auth;
 
 class HomeController extends Controller {
 
@@ -28,9 +31,15 @@ class HomeController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($sort='created_at')
 	{
-		return view('home');
+        $tasks = Task::where('owner', Auth::user()->id)
+                    ->orWhere('performer', Auth::user()->id)
+                    ->with('owner')->with('performer')
+                    ->orderBy($sort)
+                    ->get();
+
+		return view('home', ['tasks' => $tasks]);
 	}
 
 }

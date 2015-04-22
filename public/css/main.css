@@ -1,0 +1,15 @@
+ul {
+  list-style-type: none; }
+
+.panel-body {
+  padding: 10px;
+  margin: 0; }
+  .panel-body li {
+    margin-bottom: 5px;
+    cursor: pointer;
+    padding: 5px 0; }
+    .panel-body li:hover {
+      background-color: #DCEDF5; }
+
+
+/*# sourceMappingURL=main.css.map */
