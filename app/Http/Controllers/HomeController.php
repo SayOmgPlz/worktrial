@@ -31,9 +31,13 @@ class HomeController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($sort='created_at')
 	{
-        $tasks = Task::where('owner', Auth::user()->id)->orWhere('performer', Auth::user()->id)->get();
+        $tasks = Task::where('owner', Auth::user()->id)
+                    ->orWhere('performer', Auth::user()->id)
+                    ->with('owner')->with('performer')
+                    ->orderBy($sort)
+                    ->get();
 
 		return view('home', ['tasks' => $tasks]);
 	}
