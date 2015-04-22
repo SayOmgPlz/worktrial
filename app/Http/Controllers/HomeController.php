@@ -39,7 +39,7 @@ class HomeController extends Controller {
                     ->orderBy($sort)
                     ->get();
 
-		return view('home', ['tasks' => $tasks]);
+		return view('home', ['tasks' => $tasks, 'users' => User::all()]);
 	}
 
 }
