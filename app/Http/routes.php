@@ -20,5 +20,5 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::controller('tasks','TasksController');
+Route::get('tasks/mytasks/{sort}','TasksController@getMytasks');
 Route::resource('tasks','TasksController');
