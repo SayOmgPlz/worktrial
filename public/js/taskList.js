@@ -47,7 +47,7 @@ var ModalForm = new function() {
             var postData = {
                 description: $('#modal-description').val(),
                 state: $('#modal-state').val(),
-                performer: $('modal-performer').val()
+                performer: $('#modal-performer').val()
             }
 
             var method;
@@ -98,7 +98,6 @@ var ModalForm = new function() {
     }
 
     this.open = function() {
-        console.log(323232);
         modal.modal('show');
     }
 
@@ -120,10 +119,13 @@ var ModalForm = new function() {
 var TaskTable = new function() {
     var self = this;
     var sortedBy  = 'created_at'
+    // 0 = 'ASC', 1 = 'DESC'
+    var sortOrder = 0;
 
     this.events = function() {
         $('#task-header').on('click', 'a', function(){
             sortedBy = $(this).attr('data-sort');
+            sortOrder = sortOrder ? 0 : 1;
             self.getMyTasks();
         });
 
@@ -157,9 +159,9 @@ var TaskTable = new function() {
     }
 
     this.getMyTasks = function() {
-        ajax_request('GET', configs.baseUrl + '/tasks/mytasks/' + sortedBy, {}, function(response){
+        ajax_request('GET', configs.baseUrl + '/tasks/mytasks/' + sortedBy + '?order=' + sortOrder, {}, function(response){
             if(!response.errors) {
-                $('#task-list').replaceWith(response.data);
+                $('#task-list').replaceWith(response.data.view);
             }
         })
     }

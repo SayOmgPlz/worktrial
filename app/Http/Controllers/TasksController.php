@@ -20,18 +20,28 @@ class TasksController extends Controller {
 	}
 
     public function getMytasks($sortBy="created_at") {
-
+/*
         if(!Request::ajax()) {
             // TODO::return page not found view;
             return;
-        }
+        }*/
+
+        $sortOrder = intval(Request::get('order')) ? 'asc' : 'desc';
 
         $tasks = Task::where('owner', Auth::user()->id)
             ->orWhere('performer', Auth::user()->id)
             ->with('owner')->with('performer')
-            ->orderBy($sortBy)->get();
+            ->orderBy($sortBy, $sortOrder)->get();
 
-        return json_encode(['data' => view('tasks.tasks-list', ['tasks' => $tasks])->render(), 'errors' => false]);
+        return Response::json(array(
+                'errors' => false,
+                'data' =>
+                    [ 'view' => view('tasks.tasks-list', ['tasks' => $tasks])->render(),
+                      'tasks' => $tasks->toArray()]
+            ),
+            200
+        );
+
     }
 
 	/**
@@ -55,7 +65,7 @@ class TasksController extends Controller {
         $task = new Task();
         $task->description = Request::get('description');
         $task->owner = Auth::user()->id;
-        $task->performer = Request::get('performer');
+        $task->performer = intval(Request::get('performer')) ? intval(Request::get('performer')): null;
         $task->state = Request::get('state');
         $task->save();
 
@@ -109,8 +119,7 @@ class TasksController extends Controller {
 	{
         $task = Task::find($id);
         $task->description = Request::get('description');
-        $task->owner = Auth::user()->id;
-        $task->performer = Request::get('performer');
+        $task->performer = intval(Request::get('performer')) ? intval(Request::get('performer')): null;
         $task->state = Request::get('state');
         $task->save();
 
