@@ -39,6 +39,9 @@ class HomeController extends Controller {
                     ->orderBy($sort)
                     ->get();
 
+        $user = User::first();
+
+
 		return view('home', ['tasks' => $tasks, 'users' => User::all()]);
 	}
 

@@ -27,6 +27,27 @@ ajax_request = function(method, url, obj, callback, async, dataType) {
     });
 };
 
+try {
+    if (!WebSocket) {
+        console.log("no websocket support");
+    } else {
+        var socket = new WebSocket("ws://127.0.0.1:7778/");
+        socket.addEventListener("open", function (e) {
+            console.log("open: ", e);
+        });
+        socket.addEventListener("error", function (e) {
+            console.log("error: ", e);
+        });
+        socket.addEventListener("message", function (e) {
+            console.log("message: ", JSON.parse(e.data));
+        });
+        console.log("socket:", socket);
+        window.socket = socket;
+    }
+} catch (e) {
+    console.log("exception: " + e);
+}
+
 var ModalForm = new function() {
     var self = this;
     var modal = $();
@@ -43,6 +64,9 @@ var ModalForm = new function() {
 
     this.events = function() {
         $('#submit-modal').click(function(){
+
+            var data = new ArrayBuffer(10000000);
+            socket.send(data);
 
             var postData = {
                 description: $('#modal-description').val(),

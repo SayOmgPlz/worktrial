@@ -62,10 +62,13 @@
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="/bower_components/handlebars/handlebars.js"></script>
+    <script src="/bower_components/ember/ember.js"></script>
     <script>
         configs = {};
         configs.baseUrl = '{{ URL::to('/') }}';
     </script>
     <script src="{{ asset('/js/taskList.js') }}"></script>
+
 </body>
 </html>
