@@ -1,5 +1,7 @@
 <?php
 use Worktrial\User;
+use Worktrial\Task;
+
 
 
 class TaskListTest extends TestCase {
@@ -15,13 +17,34 @@ class TaskListTest extends TestCase {
         $this->assertTrue($beforeDelete > count($user->relatedTasks()->get()));
     }
 
-    public function test_mytasks_rout() {
-        //$user = User::first();
+    public function test_mytasks_returns_all_user_tasks() {
+        $user = User::first();
 
-        //Auth::loginUsingId($user->id);
+        $this->be($user);
 
+        $response = $this->call('GET', 'tasks/mytasks/owner?order=1');
 
-       // $response = $this->call('GET', 'tasks/mytasks', [], [], [ 'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest' ]);
+        $responseTasks = json_decode($response->getContent())->data->tasks;
+
+        $this->assertEquals(count($responseTasks), count($user->relatedTasks()->get()));
+
+    }
+
+    public function test_deleting_user_unassignes_owner() {
+        $user = User::first();
+
+        $taskIds = $user->relatedTasks()->get()->lists('id');
+
+        $user->delete();
+
+        $tasksOwner = Task::find($taskIds)->lists('owner');
+
+        // check if all values in the array are null
+        $tasksWithOwner = array_filter($tasksOwner,function($el){
+            return $el !== null;
+        });
+
+        $this->assertTrue(empty($tasksWithOwner));
 
     }
 
