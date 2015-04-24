@@ -1,5 +1,9 @@
 @extends('app')
 
+@section('title')
+Tasks
+@endsection
+
 @section('content')
 <div class="container">
 	<div class="row">
