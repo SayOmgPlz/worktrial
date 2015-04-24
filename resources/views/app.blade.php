@@ -67,6 +67,7 @@
     <script>
         configs = {};
         configs.baseUrl = '{{ URL::to('/') }}';
+        configs.user =  '{{ Auth::id() }}';
     </script>
     <script src="{{ asset('/js/taskList.js') }}"></script>
 

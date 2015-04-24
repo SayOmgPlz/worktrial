@@ -26,19 +26,21 @@ ajax_request = function(method, url, obj, callback, async, dataType) {
         }
     });
 };
-
+$(document).ready(function(){
 try {
     if (!WebSocket) {
         console.log("no websocket support");
     } else {
         var socket = new WebSocket("ws://127.0.0.1:7778/");
         socket.addEventListener("open", function (e) {
+            socket.send(JSON.stringify({user: configs.user}));
             console.log("open: ", e);
         });
         socket.addEventListener("error", function (e) {
             console.log("error: ", e);
         });
         socket.addEventListener("message", function (e) {
+            TaskTable.getMyTasks();
             console.log("message: ", JSON.parse(e.data));
         });
         console.log("socket:", socket);
@@ -47,6 +49,8 @@ try {
 } catch (e) {
     console.log("exception: " + e);
 }
+
+});
 
 var ModalForm = new function() {
     var self = this;
@@ -64,10 +68,6 @@ var ModalForm = new function() {
 
     this.events = function() {
         $('#submit-modal').click(function(){
-
-            var data = new ArrayBuffer(10000000);
-            socket.send(data);
-
             var postData = {
                 description: $('#modal-description').val(),
                 state: $('#modal-state').val(),
@@ -86,6 +86,9 @@ var ModalForm = new function() {
 
             ajax_request(method, url, postData, function(response) {
                 if(!response.errors) {
+                    // security problem
+
+                    socket.send(JSON.stringify({'users': [response.data.owner, response.data.performer]}))
                     modal.modal('hide');
                     TaskTable.getMyTasks();
                 }
@@ -158,6 +161,7 @@ var TaskTable = new function() {
 
             ajax_request('DELETE', configs.baseUrl + '/tasks/' + taskId, {}, function(response){
                 if(!response.errors) {
+                    socket.send(JSON.stringify({'users': [response.data.owner, response.data.performer]}))
                     self.getMyTasks();
                 }
             })

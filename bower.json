@@ -1,0 +1,26 @@
+{
+  "name": "ember",
+  "version": "1.0.0",
+  "homepage": "https://github.com/SayOmgPlz/worktrial",
+  "authors": [
+    "Lutchezar Canov <lecanov@abv.bg>"
+  ],
+  "description": "ember",
+  "main": "public/js/lib/ember.js",
+  "keywords": [
+    "['ember'",
+    "'sockets']"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ember": "components/ember#~1.11.3",
+    "ember-data": "components/ember-data#~0.0.14"
+  }
+}
